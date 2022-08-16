@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test successfully created</title>
+    <style>
+        .center {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .header {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .user_static_actions {
+            float: right;
+            text-align: right;
+        }
+
+        .language {
+            float: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="user_static_actions">
+        <strong><a style="font-size:20px" th:text="${user.getUsername()}">User</a></strong>
+        <form th:action="@{/logout}" th:method="POST">
+            <input style="background-color: darkgrey; font-size: 15px; padding: 5px 15px" type="submit"
+                   th:value="#{logout}"/>
+        </form>
+        <form th:action="@{/main_page}" th:method="GET">
+            <input style="background-color: lightgrey; font-size: 15px; padding: 8px 4px" type="submit"
+                   th:value="#{mainPage}"/>
+        </form>
+    </div>
+    <div class="language">
+        <strong><a style="font-size:15px">[[#{login.choose_lang}]]</a></strong>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=en}">[[#{login.english}]]</a>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=ua}">[[#{login.ukrainian}]]</a>
+    </div>
+</div>
+
+<div class="center">
+    <strong style="font-size:30px">[[#{test_create_success}]]</strong>
+    <br/>
+    <br/>
+
+    <form th:action="@{/admin/tests/{id}(id=${test.getId()})}" th:method="GET">
+        <input style="background-color: lightgrey; font-size: 15px; padding: 8px 30px" type="submit"
+               th:value="#{go_to_questions}"/>
+    </form>
+</div>
+
+</body>
+</html>

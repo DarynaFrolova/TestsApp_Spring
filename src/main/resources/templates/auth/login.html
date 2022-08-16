@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Login page</title>
+    <style>
+        .center {
+            padding: 100px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <strong><a style="font-size:15px">[[#{login.choose_lang}]]</a></strong>
+    <br/>
+    <a style="font-size:15px" th:href="@{?lang=en}">[[#{login.english}]]</a>
+    <br/>
+    <a style="font-size:15px" th:href="@{?lang=ua}">[[#{login.ukrainian}]]</a>
+</div>
+
+<div class="center">
+    <form method="post" action="/process_login">
+
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+
+        <p style="font-size:40px">[[#{app.title}]]</p>
+
+        <p style="font-size:20px">[[#{login.sentence_sign_in}]]</p>
+        <label style="font-size:20px" for="username">[[#{login.username}]] </label>
+        <input style="font-size:20px" type="text" name="username" id="username"/>
+        <br/>
+        <label style="font-size:20px" for="password">[[#{login.password}]] </label>
+        <input style="font-size:20px" type="password" name="password" id="password"/>
+        <br/>
+        <br/>
+        <input style="background-color: lightgrey; font-size: 20px; padding: 8px 143px" type="submit"
+               th:value="#{login.sign_in}"/>
+
+        <div th:if="${param.error}" style="color: red">[[#{login.wrong_data}]]</div>
+    </form>
+
+    <br/>
+    <br/>
+    <br/>
+    <p style="font-size:20px">[[#{login.sentence_sign_up}]]</p>
+    <form th:action="@{/auth/registration}">
+        <input style="background-color: lightgrey; font-size: 20px; padding: 8px 143px" type="submit"
+               th:value="#{login.sign_up}"/>
+    </form>
+
+</div>
+
+</body>
+</html>

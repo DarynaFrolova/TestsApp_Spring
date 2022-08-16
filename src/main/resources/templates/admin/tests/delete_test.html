@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Delete test</title>
+    <style>
+        .center {
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .header {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .user_static_actions {
+            float: right;
+            text-align: right;
+        }
+
+        .language {
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="user_static_actions">
+        <strong><a style="font-size:20px" th:text="${user.getUsername()}">User</a></strong>
+        <form th:action="@{/logout}" th:method="POST">
+            <input style="background-color: darkgrey; font-size: 15px; padding: 5px 15px" type="submit"
+                   th:value="#{logout}"/>
+        </form>
+        <form th:action="@{/main_page}" th:method="GET">
+            <input style="background-color: lightgrey; font-size: 15px; padding: 8px 4px" type="submit"
+                   th:value="#{mainPage}"/>
+        </form>
+    </div>
+    <div class="language">
+        <strong><a style="font-size:15px">[[#{login.choose_lang}]]</a></strong>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=en}">[[#{login.english}]]</a>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=ua}">[[#{login.ukrainian}]]</a>
+    </div>
+</div>
+
+<div class="center">
+    <div>
+        <strong><a style="font-size:20px">[[#{confirm_delete_test}]]</a></strong>
+        <br/>
+        <br/>
+        <a style="font-size:20px">[[#{delete_test_explained}]]</a>
+
+        <form th:action="@{/admin/tests/test/{id}/delete/(id=${test.getId})}" th:object="${test}" method="POST">
+            <p style="font-size:20px" th:text="${test.getName()}">Test Title</p>
+            <button style="background-color: lightgrey; font-size: 15px; padding: 8px 125px"
+                    type="submit">[[#{yes_delete_test}]]
+            </button>
+        </form>
+
+        <br/>
+        <form th:action="@{/admin/tests/{id}(id=${test.getId()})}">
+            <input style="background-color: lightgrey; font-size: 15px; padding: 8px 4px"
+                   type="submit" th:value="#{no_leave_test}"/>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

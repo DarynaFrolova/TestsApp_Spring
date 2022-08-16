@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All tests</title>
+    <style>
+        .center {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .header {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .user_static_actions {
+            float: right;
+            text-align: right;
+        }
+
+        .language {
+            float: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="user_static_actions">
+        <strong><a style="font-size:20px" th:text="${user.getUsername()}">User</a></strong>
+        <form th:action="@{/logout}" th:method="POST">
+            <input style="background-color: darkgrey; font-size: 15px; padding: 5px 15px" type="submit"
+                   th:value="#{logout}"/>
+        </form>
+        <form th:action="@{/main_page}" th:method="GET">
+            <input style="background-color: lightgrey; font-size: 15px; padding: 8px 4px" type="submit"
+                   th:value="#{mainPage}"/>
+        </form>
+    </div>
+    <div class="language">
+        <strong><a style="font-size:15px">[[#{login.choose_lang}]]</a></strong>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=en}">[[#{login.english}]]</a>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=ua}">[[#{login.ukrainian}]]</a>
+    </div>
+</div>
+
+<div class="center">
+
+    <a th:switch="${user.status}">
+        <a th:case="'blocked'">
+            <a style="color:red; font-size:20px">[[#{account_blocked.sentence}]]</a>
+            <br/>
+            <br/>
+        </a>
+    </a>
+
+    <td th:switch="${size}">
+        <!--        <p style="font-size:20px"><span th:case="'0'">[[#{no_tests}]]</span></p>-->
+
+        <!--        Sorting -->
+        <div th:case="*">
+            <p style="font-size:40px">[[#{tests}]]</p>
+            <table style="margin-left:auto;margin-right:auto;" border="1">
+                <thead>
+                <tr>
+                    <th style="height:50px;width:200px;text-align: center; font-size:20px">
+                        <a th:href="@{'/page/' + ${currentPage} + '?sortField=name&sortDir=' + ${reverseSortDir}}">
+                            [[#{title}]]</a>
+                    </th>
+                    <th style="height:50px;width:200px;text-align: center; font-size:20px">
+                        <a th:href="@{'/page/' + ${currentPage} + '?sortField=difficulty&sortDir=' + ${reverseSortDir}}">
+                            [[#{difficulty}]]</a>
+                    </th>
+                    <th style="height:50px;width:200px;text-align: center; font-size:20px">
+                        <a th:href="@{'/page/' + ${currentPage} + '?sortField=numberOfQueries&sortDir=' + ${reverseSortDir}}">
+                            [[#{number_of_queries}]]</a>
+                    </th>
+                    <a th:switch="${user.status}">
+                        <a th:case="'active'">
+                            <th style="height:50px;width:200px;text-align: center; font-size:20px">[[#{actions}]]</th>
+                        </a>
+                    </a>
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="test : ${tests}" th:object="${test}">
+                    <td style="height:50px;width:200px;text-align: center; font-size:20px"
+                        th:text="${test.getName()}"> test
+                        name
+                    </td>
+                    <td style="height:50px;width:200px;text-align: center; font-size:20px"
+                        th:text="${test.getDifficulty().getLevel()}">test difficulty
+                    </td>
+                    <td style="height:50px;width:200px;text-align: center; font-size:20px"
+                        th:text="${test.getNumberOfQueries()}"> test number of queries
+                    </td>
+                    <a th:switch="${user.status}">
+                        <a th:case="'active'">
+                            <td style="height:50px;width:200px;text-align: center; font-size:20px">
+                                <form th:action="@{/student/tests/{id}(id=${test.id})}">
+                                    <input style="background-color: lightgrey; font-size: 15px; padding: 5px 15px"
+                                           type="submit"
+                                           th:value="#{take_test}"/>
+                                </form>
+                            </td>
+                        </a>
+                    </a>
+                </tr>
+                </tbody>
+            </table>
+
+
+            <br/>
+            <br/>
+            <!--             Pagination -->
+            <div th:if="${totalPages > 1}">
+                <div style="font-size:18px">
+                    <div>
+                        [[#{number_of_tests}]] [[${totalItems}]]
+                    </div>
+
+                    <div>
+					<span th:each="i: ${#numbers.sequence(1, totalPages)}">
+						<a th:if="${currentPage != i}"
+                           th:href="@{'/page/' + ${i}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[${i}]]</a>
+						<span th:unless="${currentPage != i}">[[${i}]]</span>  &nbsp; &nbsp;
+					</span>
+                    </div>
+                    <div>
+                        <a th:if="${currentPage < totalPages}"
+                           th:href="@{'/page/' + ${currentPage + 1}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[#{next}]]</a>
+                        <span th:unless="${currentPage < totalPages}">[[#{next}]]</span>
+                    </div>
+
+                    <a>
+                        <a th:if="${currentPage < totalPages}"
+                           th:href="@{'/page/' + ${totalPages}+ '?sortField=' + ${sortField} + '&sortDir=' + ${sortDir}}">[[#{last}]]</a>
+                        <span th:unless="${currentPage < totalPages}">[[#{last}]]</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+</div>
+</body>
+</html>

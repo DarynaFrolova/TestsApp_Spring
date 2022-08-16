@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit question</title>
+    <style>
+        .center {
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .header {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .user_static_actions {
+            float: right;
+            text-align: right;
+        }
+
+        .language {
+            float: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="user_static_actions">
+        <strong><a style="font-size:20px" th:text="${user.getUsername()}">User</a></strong>
+        <form th:action="@{/logout}" th:method="POST">
+            <input style="background-color: darkgrey; font-size: 15px; padding: 5px 15px" type="submit"
+                   th:value="#{logout}"/>
+        </form>
+        <form th:action="@{/main_page}" th:method="GET">
+            <input style="background-color: lightgrey; font-size: 15px; padding: 8px 4px" type="submit"
+                   th:value="#{mainPage}"/>
+        </form>
+    </div>
+    <div class="language">
+        <strong><a style="font-size:15px">[[#{login.choose_lang}]]</a></strong>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=en}">[[#{login.english}]]</a>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=ua}">[[#{login.ukrainian}]]</a>
+    </div>
+</div>
+
+<div class="center">
+    <div>
+        <strong><p style="font-size:30px">[[#{edit_question}]]</p></strong>
+        <form th:action="@{/admin/tests/question/edit/{id}(id=${question.getId()})}" th:object="${questionsDto}"
+              method="POST">
+            <div>
+                <label style="font-size:20px" for="exampleInputEmail1">Question Title</label>
+                <input style="font-size:15px" id="exampleInputEmail1" aria-describedby="emailHelp"
+                       th:field="*{questionTitle}"
+                       placeholder="">
+                <div style="color:red; font-size:15px" th:if="${#fields.hasErrors('questionTitle')}"
+                     th:errors="*{questionTitle}">Title Error
+                </div>
+
+                <div class>
+                    <br/>
+                    <input style="font-size:15px" type="text" placeholder="Option 1" th:field="*{optionOne}">
+                    <div style="color:red; font-size:15px" th:if="${#fields.hasErrors('optionOne')}"
+                         th:errors="*{optionOne}">Title Error
+                    </div>
+                </div>
+                <div class="col">
+                    <input style="font-size:15px" type="text" placeholder="Option 2" th:field="*{optionTwo}">
+                    <div style="color:red; font-size:15px" th:if="${#fields.hasErrors('optionTwo')}"
+                         th:errors="*{optionTwo}">Title Error
+                    </div>
+                </div>
+                <div>
+                    <input style="font-size:15px" type="text" placeholder="Option 3" th:field="*{optionThree}">
+                    <div style="color:red; font-size:15px" th:if="${#fields.hasErrors('optionThree')}"
+                         th:errors="*{optionThree}">Title Error
+                    </div>
+                </div>
+
+                <td th:switch="${numberOfAnswers}">
+                    <div style="font-size:20px">
+                        <span th:case="'4'">
+                            <input style="font-size:15px" type="text" placeholder="Option 4" th:field="*{optionFour}">
+                        </span>
+                    </div>
+                    <div th:case="*">
+                        <a style="font-size:40px"></a>
+                    </div>
+                </td>
+                <br>
+
+                <div>
+                    <label style="font-size:20px" for="exampleFormControlSelect1">[[#{correct_option}]] 1</label>
+                    <select th:field="*{correctAnswerOne}"
+                            id="exampleFormControlSelect1">
+                        <option style="font-size:20px" value="1">1</option>
+                        <option style="font-size:20px" value="2">2</option>
+                        <option style="font-size:20px" value="3">3</option>
+                        <td th:switch="${numberOfAnswers}">
+                            <div style="font-size:20px">
+                        <span th:case="'4'">
+                            <option style="font-size:20px" value="4">4</option>
+                        </span>
+                            </div>
+                        </td>
+                    </select>
+                </div>
+                <div>
+                    <label style="font-size:20px" for="exampleFormControlSelect1">[[#{correct_option}]] 2</label>
+                    <select th:field="*{correctAnswerTwo}"
+                            id="exampleFormControlSelect2">
+                        <option style="font-size:20px" value="0">-</option>
+                        <option style="font-size:20px" value="1">1</option>
+                        <option style="font-size:20px" value="2">2</option>
+                        <option style="font-size:20px" value="3">3</option>
+                        <td th:switch="${numberOfAnswers}">
+                            <div style="font-size:20px">
+                        <span th:case="'4'">
+                            <option style="font-size:20px" value="4">4</option>
+                        </span>
+                            </div>
+                        </td>
+                    </select>
+                </div>
+                <div>
+                    <label style="font-size:20px" for="exampleFormControlSelect1">[[#{correct_option}]] 3</label>
+                    <select th:field="*{correctAnswerThree}"
+                            id="exampleFormControlSelect3">
+                        <option style="font-size:20px" value="0">-</option>
+                        <option style="font-size:20px" value="1">1</option>
+                        <option style="font-size:20px" value="2">2</option>
+                        <option style="font-size:20px" value="3">3</option>
+                        <td th:switch="${numberOfAnswers}">
+                            <div style="font-size:20px">
+                        <span th:case="'4'">
+                            <option style="font-size:20px" value="4">4</option>
+                        </span>
+                            </div>
+                        </td>
+                    </select>
+                </div>
+                <div>
+                    <td th:switch="${numberOfAnswers}">
+                        <div style="font-size:20px">
+                        <span th:case="'4'">
+                            <label style="font-size:20px"
+                                   for="exampleFormControlSelect1">[[#{correct_option}]] 4</label>
+                <select th:field="*{correctAnswerFour}"
+                        id="exampleFormControlSelect4">
+                    <option style="font-size:20px" value="0">-</option>
+                    <option style="font-size:20px" value="1">1</option>
+                    <option style="font-size:20px" value="2">2</option>
+                    <option style="font-size:20px" value="3">3</option>
+                    <option style="font-size:20px" value="4">4</option>
+                </select>
+                        </span>
+                        </div>
+                    </td>
+                </div>
+
+                <br>
+                <button style="background-color: lightgrey; font-size: 15px; padding: 8px 30px" type="submit">
+                    [[#{update_question_button}]]
+                </button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

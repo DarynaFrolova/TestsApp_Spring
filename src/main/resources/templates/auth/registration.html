@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+    <style>
+        .center {
+            padding: 100px 0;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <strong><a style="font-size:15px">[[#{login.choose_lang}]]</a></strong>
+    <br/>
+    <a style="font-size:15px" th:href="@{?lang=en}">[[#{login.english}]]</a>
+    <br/>
+    <a style="font-size:15px" th:href="@{?lang=ua}">[[#{login.ukrainian}]]</a>
+</div>
+
+<form class="center" th:method="POST" th:action="@{/auth/registration}" th:object="${user}">
+    <p style="font-size:40px">[[#{app.title}]]</p>
+    <p style="font-size:20px">[[#{registration.sentence}]] </p>
+    <br/>
+    <label style="font-size:20px" for="username">[[#{login.username}]] </label>
+    <input style="font-size:20px" type="text" th:field="*{username}" id="username"/>
+    <div style="color:red" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Username Error</div>
+    <br/>
+    <label style="font-size:20px" for="password">[[#{login.password}]] </label>
+    <input style="font-size:20px" type="password" th:field="*{password}" id="password"/>
+    <div style="color:red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</div>
+    <br/>
+    <br/>
+    <input style="background-color: lightgrey; font-size: 20px; padding: 8px 143px" type="submit"
+           th:value="#{login.sign_up}"/>
+</form>
+
+</body>
+</html>

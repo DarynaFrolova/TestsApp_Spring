@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin test page</title>
+    <style>
+        .center {
+            padding: 30px 0;
+            text-align: center;
+        }
+
+        .header {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .user_static_actions {
+            float: right;
+            text-align: right;
+        }
+
+        .language {
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="user_static_actions">
+        <strong><a style="font-size:20px" th:text="${user.getUsername()}">User</a></strong>
+        <form th:action="@{/logout}" th:method="POST">
+            <input style="background-color: darkgrey; font-size: 15px; padding: 5px 15px" type="submit"
+                   th:value="#{logout}"/>
+        </form>
+        <form th:action="@{/main_page}" th:method="GET">
+            <input style="background-color: lightgrey; font-size: 15px; padding: 8px 4px" type="submit"
+                   th:value="#{mainPage}"/>
+        </form>
+    </div>
+    <div class="language">
+        <strong><a style="font-size:15px">[[#{login.choose_lang}]]</a></strong>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=en}">[[#{login.english}]]</a>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=ua}">[[#{login.ukrainian}]]</a>
+    </div>
+</div>
+
+<div class="center">
+
+    <td th:switch="${activeSize}">
+        <p style="font-size:20px">
+            <strong><span th:case="'0'">[[#{no_tests}]]</span></strong>
+        </p>
+        <div th:case="*">
+            <a style="font-size:40px">[[#{tests}]]</a>
+            <br/>
+            <br/>
+            <div style="font-size:20px" th:each="test : ${activeTests}" th:object="${test}">
+                <strong><a th:href="@{/admin/tests/{id}(id=${test.id})}"
+                           th:text="${test.getName()}">test</a></strong> <br/>
+                <a>[[#{difficulty}]] </a>
+                <a th:text="${test.getDifficulty().getLevel()}"/> <br/>
+                <a>[[#{number_of_queries}]] </a>
+                <a th:text="${test.getNumberOfQueries()}"/> <br/>
+                <br/>
+            </div>
+        </div>
+    </td>
+
+    <div th:if="${archivedSize} != '0'">
+        <a style="font-size:40px">[[#{archived_tests}]]</a>
+        <br/>
+        <br/>
+        <div style="font-size:20px" th:each="test : ${archivedTests}" th:object="${test}">
+            <strong><a th:href="@{/admin/tests/archived/{id}(id=${test.id})}"
+                       th:text="${test.getName()}">test</a></strong> <br/>
+        </div>
+    </div>
+
+    <br/>
+    <form th:action="@{tests/new}" th:method="GET">
+        <input style="background-color: lightgrey; font-size: 15px; padding: 8px 30px"
+               type="submit" th:value="#{create_new_test}"/>
+    </form>
+
+</body>
+
+</html>

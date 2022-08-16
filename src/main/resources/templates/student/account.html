@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Student account</title>
+    <style>
+        .center {
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .header {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .user_static_actions {
+            float: right;
+            text-align: right;
+        }
+
+        .language {
+            float: left;
+        }
+    </style>
+</head>
+<body>
+
+
+<div class="header">
+    <div class="user_static_actions">
+        <strong><a style="font-size:20px" th:text="${user.getUsername()}">User</a></strong>
+        <form th:action="@{/logout}" th:method="POST">
+            <input style="background-color: darkgrey; font-size: 15px; padding: 5px 15px" type="submit"
+                   th:value="#{logout}"/>
+        </form>
+        <form th:action="@{/main_page}" th:method="GET">
+            <input style="background-color: lightgrey; font-size: 15px; padding: 8px 4px" type="submit"
+                   th:value="#{mainPage}"/>
+        </form>
+    </div>
+    <div class="language">
+        <strong><a style="font-size:15px">[[#{login.choose_lang}]]</a></strong>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=en}">[[#{login.english}]]</a>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=ua}">[[#{login.ukrainian}]]</a>
+    </div>
+</div>
+
+<div class="center">
+
+    <a th:switch="${user.status}">
+        <a th:case="'blocked'">
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <a style="color:red; font-size:20px">[[#{account_blocked}]]</a>
+            <br/>
+            <br/>
+        </a>
+    </a>
+
+    <a th:switch="${size}">
+        <a th:case="'0'">
+            <strong><a style="font-size:20px">[[#{not_taken_tests}]]</a></strong>
+            <br/>
+            <br/>
+        </a>
+        <a th:case="*">
+            <strong><a style="font-size:20px">[[#{tests_history}]]</a></strong>
+            <br/>
+            <br/>
+            <br/>
+            <div th:each="testCase : ${testCases}">
+                <a>
+                    <strong><a style="font-size:20px" th:text="${testCase.getTestC().getName()}">Test</a></strong> <br/>
+                    <a style="font-size:15px">[[#{result}]] </a>
+                    <a style="font-size:15px" th:text="${testCase.getResult()} + '%'">%</a><br/>
+
+                    <a th:switch="${testCase.getEndTime()}">
+                        <a th:case="'Test ended automatically when time ran out.'">
+                            <a style="font-size:15px; color: firebrick" th:text="#{time_ran_out_account}">%</a><br/>
+                        </a>
+                        <a th:case="*">
+                            <a style="font-size:15px">[[#{date_time}]] </a>
+                            <a style="font-size:15px" th:text="${testCase.getEndTime()}"></a><br/>
+                        </a>
+                    </a>
+                    <br/>
+                </a>
+            </div>
+        </a>
+    </a>
+
+</div>
+
+</body>
+</html>

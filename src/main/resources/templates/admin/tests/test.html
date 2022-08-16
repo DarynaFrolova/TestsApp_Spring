@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <style>
+        .center {
+            padding: 0 500px;
+            text-align: left;
+        }
+
+        .header {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .user_static_actions {
+            float: right;
+            text-align: right;
+        }
+
+        .language {
+            float: left;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="user_static_actions">
+        <strong><a style="font-size:20px" th:text="${user.getUsername()}">User</a></strong>
+        <form th:action="@{/logout}" th:method="POST">
+            <input style="background-color: darkgrey; font-size: 15px; padding: 5px 15px" type="submit"
+                   th:value="#{logout}"/>
+        </form>
+        <form th:action="@{/main_page}" th:method="GET">
+            <input style="background-color: lightgrey; font-size: 15px; padding: 8px 4px" type="submit"
+                   th:value="#{mainPage}"/>
+        </form>
+    </div>
+    <div class="language">
+        <strong><a style="font-size:15px">[[#{login.choose_lang}]]</a></strong>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=en}">[[#{login.english}]]</a>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=ua}">[[#{login.ukrainian}]]</a>
+    </div>
+</div>
+
+<div class="center">
+    <strong><a style="font-size:30px" th:text="${test.getName()}">[[#{test_title}]]</a></strong>
+    <br/>
+    <form th:action="@{test/{id}/edit/title(id=${test.getId()})}">
+        <input type="submit" th:value="#{edit_test_title}"
+               style="display: inline; background-color: lightgrey; font-size: 15px; padding: 5px 5px"/>
+    </form>
+
+    <br/>
+    <a style="font-size:20px">[[#{time_students_have_to_pass}]]</a>
+    <strong>
+        <a style="font-size:20px" th:text="${test.getTimeToPassInMinutes()}">n</a>
+        <a style="font-size:20px"> [[#{min}]]</a>
+    </strong>
+    <br/>
+    <br/>
+    <form th:action="@{test/{id}/edit/time(id=${test.getId()})}">
+        <input type="submit" th:value="#{edit_time_test}"
+               style="display: inline; background-color: lightgrey; font-size: 15px; padding: 5px 5px"/>
+    </form>
+    <br/>
+
+    <th:block th:each="question, i: ${questions}" th:id="${#ids.seq('question')}">
+        <td><strong style="font-size:20px" th:text="${i.index + 1} + '. ' + ${question.content}"></strong>
+            <ul th:each="answer, i : ${question.answers}" th:object="${answer}"
+                th:switch="${answer.isCorrect}">
+                <div th:case="'1'">
+                    <li><a style="color:forestgreen; font-size:20px" th:text="${answer.getContent()}">content</a></li>
+                </div>
+                <div th:case="'0'">
+                    <li><a style="font-size:20px" th:text="${answer.getContent()}">content</a></li>
+                </div>
+            </ul>
+        </td>
+
+        <form th:action="@{question/edit/{id}(id=${question.getId()})}">
+            <input style="background-color: lightgrey; font-size: 15px; padding: 5px 13px" type="submit"
+                   th:value="#{edit_question_button}"/>
+        </form>
+        <form th:action="@{/admin/tests/question/delete/{id}(id=${question.getId})}">
+            <input style="background-color: lightgrey; font-size: 15px; padding: 5px 5px" type="submit"
+                   th:value="#{delete_question_button}"/>
+        </form>
+        <br/>
+
+    </th:block>
+
+    <form th:action="@{test/{id}/question/add(id=${test.getId()})}">
+        <input style="background-color: lightgrey; font-size: 15px; padding: 8px 45px" type="submit"
+               th:value="#{add_question_button}"/>
+    </form>
+    <br/>
+
+    <form th:action="@{test/{id}/delete(id=${test.getId()})}">
+        <input style="background-color: lightgrey; font-size: 15px; padding: 8px 40px" type="submit"
+               th:value="#{delete_this_test}"/>
+    </form>
+</div>
+</body>
+</html>

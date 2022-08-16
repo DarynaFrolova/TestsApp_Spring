@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>New test</title>
+    <style>
+        .center {
+            padding: 0 500px;
+            text-align: left;
+        }
+
+        .header {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .user_static_actions {
+            float: right;
+            text-align: right;
+        }
+
+        .language {
+            float: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="user_static_actions">
+        <strong><a style="font-size:20px" th:text="${user.getUsername()}">User</a></strong>
+        <form th:action="@{/logout}" th:method="POST">
+            <input style="background-color: darkgrey; font-size: 15px; padding: 5px 15px" type="submit"
+                   th:value="#{logout}"/>
+        </form>
+        <form th:action="@{/main_page}" th:method="GET">
+            <input style="background-color: lightgrey; font-size: 15px; padding: 8px 4px" type="submit"
+                   th:value="#{mainPage}"/>
+        </form>
+    </div>
+    <div class="language">
+        <strong><a style="font-size:15px">[[#{login.choose_lang}]]</a></strong>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=en}">[[#{login.english}]]</a>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=ua}">[[#{login.ukrainian}]]</a>
+    </div>
+</div>
+
+<div class="center">
+    <form th:method="POST" th:action="@{/admin/subjects/tests/new}" th:object="${testsDto}">
+        <strong><p style="font-size:30px">[[#{create_new_test}]]</p></strong>
+        <div>
+            <strong style="font-size:20px">[[#{choose_subject}]]</strong>
+            <br/>
+            <br/>
+            <a th:each="subject, i : ${subjects}">
+                <input type="radio" th:field="${testsDto.subjectName}" th:value="${subject.getName()}">
+                <label style="font-size:20px" th:for="${i.count}" th:text="${subject.getName()}"></label>
+                <br/>
+            </a>
+        </div>
+        <br/>
+
+        <strong style="font-size:20px">[[#{type_title_test}]]</strong>
+        <input style="font-size:20px" type="text" th:field="${testsDto.name}" id="title"/>
+        <div style="color:red; font-size:15px" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Title Error
+        </div>
+        <br/>
+        <br/>
+
+        <strong style="font-size:20px">[[#{choose_difficulty}]]</strong>
+        <br/>
+        <br/>
+        <a th:each="difficulty, i : ${allDifficultyLevels}">
+            <input type="radio" th:field="${testsDto.difficultyLevel}" th:value="${difficulty.getLevel()}">
+            <label style="font-size:20px" th:for="${i.count}" th:text="${difficulty.getLevel()}"></label>
+            <br/>
+        </a>
+        <br/>
+
+        <strong style="font-size:20px">[[#{minutes_question}]]</strong>
+        <input type="number" th:field="*{timeToPassInMinutes}" id="timeToPassInMinutes"/>
+        <div style="color:red; font-size:15px" th:if="${#fields.hasErrors('timeToPassInMinutes')}"
+             th:errors="*{timeToPassInMinutes}">Title Error
+        </div>
+        <br/>
+        <br/>
+
+        <input style="background-color: lightgrey; font-size: 15px; padding: 8px 30px" type="submit"
+               th:value="#{create}"/>
+    </form>
+</div>
+
+</body>
+</html>

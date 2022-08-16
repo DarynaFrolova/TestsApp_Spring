@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Run test</title>
+    <style>
+        .center {
+            padding: 0 500px;
+            text-align: left;
+            position: relative
+        }
+
+        .header {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .user_static_actions {
+            float: right;
+            text-align: right;
+        }
+
+        .language {
+            float: left;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="user_static_actions">
+        <strong><a style="font-size:20px" th:text="${user.getUsername()}">User</a></strong>
+        <form th:action="@{/logout}" th:method="POST">
+            <input style="background-color: darkgrey; font-size: 15px; padding: 5px 15px" type="submit"
+                   th:value="#{logout}"/>
+        </form>
+        <form th:action="@{/main_page}" th:method="GET">
+            <input style="background-color: lightgrey; font-size: 15px; padding: 8px 4px" type="submit"
+                   th:value="#{mainPage}"/>
+        </form>
+        <div style="font-size:20px; color: red; position:fixed; padding: 0 5px">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+            <script th:inline="javascript">
+                /*<![CDATA[*/
+
+                function redirect() {
+                    document.location.href = '/student/tests/time_ran_out';
+                }
+
+                function startTimer(duration, display) {
+                    var timer = duration, minutes, seconds;
+                    setInterval(function () {
+                        minutes = parseInt(timer / 60, 10);
+                        seconds = parseInt(timer % 60, 10);
+
+                        minutes = minutes < 10 ? "0" + minutes : minutes;
+                        seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                        display.text(minutes + ":" + seconds);
+
+                        if (minutes == 0 && seconds == 0) {
+                            redirect();
+                        }
+
+                        if (--timer < 0) {
+                            timer = duration;
+                            redirect();
+                        }
+
+                    }, 1000);
+                }
+
+                jQuery(function ($) {
+                    var minutes = 60 * /*[[${test.getTimeToPassInMinutes()}]]*/ '10',
+                        display = $('#time');
+                    startTimer(minutes, display);
+                });
+
+                /*]]>*/
+
+            </script>
+            <p>[[#{time_left}]] <span id="time"></span></p>
+        </div>
+    </div>
+    <div class="language">
+        <strong><a style="font-size:15px">[[#{login.choose_lang}]]</a></strong>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=en}">[[#{login.english}]]</a>
+        <br/>
+        <a style="font-size:15px" th:href="@{?lang=ua}">[[#{login.ukrainian}]]</a>
+    </div>
+</div>
+
+<div class="center">
+
+    <strong><a style="font-size:20px; color: darkblue">[[#{keep_in_mind}]]</a></strong>
+    <a style="font-size:20px; color: darkblue">[[#{you_have}]] </a>
+    <strong>
+        <a style="font-size:20px; color: darkblue" th:text="${test.getTimeToPassInMinutes()}">n</a>
+        <a style="font-size:20px; color: darkblue"> [[#{min}]]</a>
+    </strong>
+    <a style="font-size:20px; color: darkblue"> [[#{to_pass}]]</a>
+    <br/>
+    <br/>
+
+
+    <div style="font-style: italic">[[#{rule_1}]]
+        <strong> [[#{rule_2}]]</strong>
+        <a> [[#{rule_3}]]</a>
+    </div>
+    <br/>
+    <div style="font-style: italic">
+        [[#{rule_4}]]
+        <strong> [[#{rule_5}]]</strong>
+        <a> [[#{rule_6}]]</a>
+    </div>
+
+    <br>
+
+    <form th:method="POST" th:action="@{/tests/{id}(id=${testCase.getTestC().getId()})}" th:object="${testCase}">
+        <input type="hidden" th:field="*{account}">
+        <input type="hidden" th:field="*{testC}">
+        <input type="hidden" th:field="*{startTime}">
+        <div th:object="${questions}">
+            <br>
+            <th:block th:each="question, i: ${questions}" th:id="${#ids.seq('question')}">
+                <label> <strong style="font-size:20px"
+                                th:text="${i.index + 1} + '. ' + ${question.content}"></strong></label>
+                <br/>
+                <br/>
+
+                <div style="font-style: italic"
+                     th:if="${question.getQuestionType().getId()} == '2'">
+                    <a>[[#{several_answers}]]</a>
+                    <br/>
+                    <br/>
+                </div>
+
+                <a th:each="answer, i : ${question.answers}">
+                    <div>
+                        <input type="checkbox" th:field="${testCase.answers}" th:value="${answer.id}">
+                        <label style="font-size:20px" th:for="${i.count}" th:text="${answer.content}"></label>
+                        <br/>
+                        <br/>
+                    </div>
+                </a>
+            </th:block>
+        </div>
+        <br>
+        <button style="background-color: lightgrey; font-size: 15px; padding: 8px 15px" type="submit">
+            [[#{finish_attempt}]]
+        </button>
+    </form>
+</div>
+</body>

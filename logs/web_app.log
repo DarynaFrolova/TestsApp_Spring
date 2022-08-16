@@ -1,0 +1,50 @@
+2022-08-16 12:36:36,623 INFO o.h.v.i.u.Version [background-preinit] HV000001: Hibernate Validator 6.2.3.Final
+2022-08-16 12:36:36,642 INFO c.e.W.WebAppProjectApplication [main] Starting WebAppProjectApplication using Java 17.0.1 on MacBook-Pro.local with PID 31184 (/Users/Daryna/Desktop/WebAppProject/target/classes started by Daryna in /Users/Daryna/Desktop/WebAppProject)
+2022-08-16 12:36:36,650 INFO c.e.W.WebAppProjectApplication [main] No active profile set, falling back to 1 default profile: "default"
+2022-08-16 12:36:37,573 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-16 12:36:37,651 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 72 ms. Found 9 JPA repository interfaces.
+2022-08-16 12:36:38,166 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2022-08-16 12:36:38,174 INFO o.a.c.h.Http11NioProtocol [main] Initializing ProtocolHandler ["http-nio-8080"]
+2022-08-16 12:36:38,176 INFO o.a.c.c.StandardService [main] Starting service [Tomcat]
+2022-08-16 12:36:38,176 INFO o.a.c.c.StandardEngine [main] Starting Servlet engine: [Apache Tomcat/9.0.64]
+2022-08-16 12:36:38,284 INFO o.a.c.c.C.[.[.[/] [main] Initializing Spring embedded WebApplicationContext
+2022-08-16 12:36:38,285 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 1577 ms
+2022-08-16 12:36:38,387 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2022-08-16 12:36:38,690 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2022-08-16 12:36:38,736 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-16 12:36:38,760 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 5.6.9.Final
+2022-08-16 12:36:38,831 INFO o.h.a.c.Version [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2022-08-16 12:36:38,884 INFO o.h.d.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2022-08-16 12:36:39,477 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-16 12:36:39,482 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-16 12:36:40,209 INFO o.s.s.w.DefaultSecurityFilterChain [main] Will secure any request with [org.springframework.security.web.session.DisableEncodeUrlFilter@45964b9e, org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@166a5659, org.springframework.security.web.context.SecurityContextPersistenceFilter@24a807a9, org.springframework.security.web.header.HeaderWriterFilter@63af52a6, org.springframework.security.web.csrf.CsrfFilter@5644f664, org.springframework.security.web.authentication.logout.LogoutFilter@7ea8224b, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@5ec3689b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@736f2fb8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@9715d26, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1afabf06, org.springframework.security.web.session.SessionManagementFilter@573f2e67, org.springframework.security.web.access.ExceptionTranslationFilter@4853f592, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2c51c756]
+2022-08-16 12:36:40,264 WARN o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration [main] spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-16 12:36:40,640 INFO o.a.c.h.Http11NioProtocol [main] Starting ProtocolHandler ["http-nio-8080"]
+2022-08-16 12:36:40,650 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-16 12:36:40,661 INFO c.e.W.WebAppProjectApplication [main] Started WebAppProjectApplication in 4.371 seconds (JVM running for 5.476)
+2022-08-16 12:36:48,149 INFO o.a.c.c.C.[.[.[/] [http-nio-8080-exec-1] Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-16 12:36:48,151 INFO o.s.w.s.DispatcherServlet [http-nio-8080-exec-1] Initializing Servlet 'dispatcherServlet'
+2022-08-16 12:36:48,168 INFO o.s.w.s.DispatcherServlet [http-nio-8080-exec-1] Completed initialization in 17 ms
+2022-08-16 12:36:57,288 TRACE c.e.W.c.DefaultController [http-nio-8080-exec-3] Login successful: Bob, ROLE_STUDENT
+2022-08-16 12:37:01,097 TRACE c.e.W.c.TestsController [http-nio-8080-exec-5] Student with id 1 started test Conditional sentences
+2022-08-16 12:37:01,128 TRACE c.e.W.c.TestsController [http-nio-8080-exec-5] Student with id 1 finished test Conditional sentences
+2022-08-16 12:37:18,517 TRACE c.e.W.c.TestsController [http-nio-8080-exec-6] Results of test Bob have been shown to student Conditional sentences: 80.0
+2022-08-16 12:37:50,836 TRACE c.e.W.c.AuthController [http-nio-8080-exec-5] Registration successful: Павло
+2022-08-16 12:38:05,190 TRACE c.e.W.c.TestsController [http-nio-8080-exec-2] Student with id 17 started test Conditional sentences
+2022-08-16 12:38:05,199 TRACE c.e.W.c.TestsController [http-nio-8080-exec-2] Student with id 17 finished test Conditional sentences
+2022-08-16 12:38:19,871 TRACE c.e.W.c.TestsController [http-nio-8080-exec-3] Results of test Павло have been shown to student Conditional sentences: 20.0
+2022-08-16 12:38:44,414 TRACE c.e.W.c.UserController [http-nio-8080-exec-1] Admin Mary blocked student with id 16
+2022-08-16 12:38:46,169 TRACE c.e.W.c.UserController [http-nio-8080-exec-3] Admin Mary unblocked student with id 16
+2022-08-16 12:39:09,264 TRACE c.e.W.c.TestsController [http-nio-8080-exec-10] Admin Mary has successfully updated question with id 44
+2022-08-16 12:39:17,846 TRACE c.e.W.c.TestsController [http-nio-8080-exec-4] Admin Mary has successfully updated question with id 44
+2022-08-16 12:39:25,741 TRACE c.e.W.c.TestsController [http-nio-8080-exec-8] Admin Mary deleted question with id 44
+2022-08-16 12:39:46,980 TRACE c.e.W.c.TestsController [http-nio-8080-exec-2] Admin Mary has successfully added new question to test with id 7
+2022-08-16 12:39:50,746 TRACE c.e.W.c.TestsController [http-nio-8080-exec-6] Admin Mary deleted question with id 45
+2022-08-16 12:40:01,630 TRACE c.e.W.c.TestsController [http-nio-8080-exec-3] Admin Mary successfully deleted test with id 6
+2022-08-16 12:40:19,425 TRACE c.e.W.c.TestsController [http-nio-8080-exec-10] Admin Mary has successfully edited title of the test
+2022-08-16 12:40:23,684 TRACE c.e.W.c.TestsController [http-nio-8080-exec-4] Admin Mary has successfully edited title of the test
+2022-08-16 12:40:27,167 TRACE c.e.W.c.TestsController [http-nio-8080-exec-8] Admin Mary tried to edit time assigned to the test null, but failed due to validation restrictions
+2022-08-16 12:40:34,839 TRACE c.e.W.c.TestsController [http-nio-8080-exec-9] Admin Mary has successfully edited time assigned to the test Test errors Five
+2022-08-16 12:40:53,521 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [SpringApplicationShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2022-08-16 12:40:53,530 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown initiated...
+2022-08-16 12:40:53,560 INFO c.z.h.HikariDataSource [SpringApplicationShutdownHook] HikariPool-1 - Shutdown completed.

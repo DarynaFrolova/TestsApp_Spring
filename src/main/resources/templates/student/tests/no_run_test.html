@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blocked test session</title>
+    <style>
+        .center {
+            padding: 100px 0;
+            text-align: center;
+        }
+    </style>
+    <style>
+        .username {
+            padding: 0 5px;
+            text-align: right;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <strong><a style="font-size:15px">[[#{login.choose_lang}]]</a></strong>
+    <br/>
+    <a style="font-size:15px" th:href="@{?lang=en}">[[#{login.english}]]</a>
+    <br/>
+    <a style="font-size:15px" th:href="@{?lang=ua}">[[#{login.ukrainian}]]</a>
+</div>
+
+<div class="username">
+    <strong><a style="font-size:20px" th:text="${user.getUsername()}">User</a></strong>
+    <form th:action="@{/logout}" th:method="POST">
+        <input style="background-color: darkgrey; font-size: 15px; padding: 5px 15px" type="submit" value="Logout"/>
+    </form>
+    <form th:action="@{/main_page}" th:method="GET">
+        <input style="background-color: lightgrey; font-size: 15px; padding: 8px 4px" type="submit" value="Main page"/>
+    </form>
+</div>
+
+<div class="center">
+    <a style="color:red; font-size:20px">[[#{no_run_test.sentence}]]</a>
+</div>
+
+<div>
+
+</div>
+</body>
