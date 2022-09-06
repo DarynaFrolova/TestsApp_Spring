@@ -35,3 +35,7 @@ A question can have one or more correct answers. The result of the test is the p
 - Application responds correctly to errors and exceptional situations of various kinds (**final user does not see the stack trace on the client side**).
 - **Project Lombok** is used.
 - **ThymeLeaf** is used.
+
+**Preview:**
+
+<img width="300" src="https://user-images.githubusercontent.com/95927190/188604648-6a268a44-6b40-45c4-bc00-83f52cb2f4be.png"> <img width="300" src="https://user-images.githubusercontent.com/95927190/188604892-a013b237-11da-416d-a42e-9bbe17965921.png"> <img width="400" src="https://user-images.githubusercontent.com/95927190/188605240-ea876ddc-43c4-4820-82ec-4499f4671278.png"> <img width="500" src="https://user-images.githubusercontent.com/95927190/188605435-32bfa110-4da5-43ed-80c6-d3f1adec36be.png"> <img width="200" src="https://user-images.githubusercontent.com/95927190/188606626-21f7e55f-9bef-4ce1-958c-8c44cff7b69e.png"> <img width="200" alt="Снимок экрана 2022-09-06 в 11 59 40" src="https://user-images.githubusercontent.com/95927190/188606857-a8126d17-2248-4500-ac25-26acb1eb662d.png">
